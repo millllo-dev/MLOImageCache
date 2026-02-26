@@ -14,7 +14,11 @@ final class ImageDownloader: ImageDownloadable {
         self.session = session
     }
     
-    func download(from url: URL) async throws -> Data {
+    func download(from str: String) async throws -> Data {
+        guard let url = URL(string: str) else {
+            throw ImageCacheError.invalidURL
+        }
+        
         let data: Data
         let response: URLResponse
         

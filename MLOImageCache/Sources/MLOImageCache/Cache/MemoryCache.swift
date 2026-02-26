@@ -8,26 +8,21 @@
 import Foundation
 
 final class MemoryCache: MemoryCacheProtocol {
-    private let cache: NSCache<NSString, NSData>
+    private let cache: NSCache<NSString, PlatformImage>
     
     init(configuration: CacheConfiguration = .default) {
-        self.cache = NSCache<NSString, NSData>()
+        self.cache = NSCache<NSString, PlatformImage>()
         self.cache.countLimit = configuration.memoryCountLimit
         self.cache.totalCostLimit = configuration.memorySizeLimit
     }
     
-    func loadImage(forKey key: String) -> Data? {
-        guard let data = cache.object(forKey: NSString(string: key)) else {
-            NSLog("Not found in memory cache: \(key)")
-            return nil
-        }
-        
-        return Data(data)
+    func loadImage(forKey key: String) -> PlatformImage? {
+       return cache.object(forKey: key as NSString)
     }
     
-    func saveImage(_ data: Data, forKey key: String) {
-        let nsData = data as NSData
-        cache.setObject(data as NSData, forKey: NSString(string: key), cost: nsData.length)
+    func saveImage(_ image: PlatformImage, forKey key: String) {
+        let cost = imageCost(image)
+        cache.setObject(image, forKey: key as NSString, cost: cost)
     }
     
     func remove(forKey key: String) {
@@ -36,5 +31,10 @@ final class MemoryCache: MemoryCacheProtocol {
     
     func removeAll() {
         cache.removeAllObjects()
+    }
+    
+    private func imageCost(_ image: PlatformImage) -> Int {
+        guard let cgImage = image.cgImage else { return 0 }
+        return cgImage.bytesPerRow * cgImage.height
     }
 }

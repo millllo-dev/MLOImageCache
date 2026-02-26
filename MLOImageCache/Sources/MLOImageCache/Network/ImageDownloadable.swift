@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol ImageDownloadable {
-    func download(from url: URL) async throws -> Data
+protocol ImageDownloadable: Sendable {
+    func download(from url: String) async throws -> Data
 }

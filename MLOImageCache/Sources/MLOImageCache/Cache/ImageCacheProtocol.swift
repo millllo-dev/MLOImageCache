@@ -9,8 +9,8 @@ import Foundation
 
 // MARK: - ImageCacheProtocol
 protocol MemoryCacheProtocol {
-    func loadImage(forKey key: String) -> Data?
-    func saveImage(_ data: Data, forKey key: String)
+    func loadImage(forKey key: String) -> PlatformImage?
+    func saveImage(_ image: PlatformImage, forKey key: String)
     func remove(forKey key: String)
     func removeAll()
 }

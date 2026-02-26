@@ -11,7 +11,7 @@ public struct CacheConfiguration: Sendable {
     public let memoryCountLimit: Int
     public let memorySizeLimit: Int
     
-    public let diskSizeLimit: Int
+    public let diskSizeLimit: Int                   // disk limit size
     public let diskExpiration: TimeInterval         // file expiration time
     public let diskCleanupInterval: TimeInterval    // cleanup time
     
