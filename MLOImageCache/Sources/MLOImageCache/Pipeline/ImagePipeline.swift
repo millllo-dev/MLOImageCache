@@ -28,6 +28,7 @@ final actor ImagePipeline {
         self.configuration = configuration
     }
     
+    // MARK: - image
     func image(for url: String) async throws -> PlatformImage {
         let key = url.sha256Hash()
         
