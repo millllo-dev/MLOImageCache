@@ -56,6 +56,7 @@ final actor ImagePipeline {
         return image
     }
     
+    // MARK: - download deduplication
     private func downloadWithDeduplication(url: String) async throws -> Data {
         if let existingTask = inFlightTask[url] {
             return try await existingTask.value
