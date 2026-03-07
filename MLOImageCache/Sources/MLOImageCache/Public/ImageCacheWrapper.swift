@@ -30,8 +30,7 @@ extension ImageCacheWrapper where Base: UIImageView {
     @discardableResult
     public func setImage(
         with url: String,
-        placeholder: PlatformImage? = nil,Add
-        configuration: CacheConfiguration = .default
+        placeholder: PlatformImage? = nil
     ) -> Task<PlatformImage?, Never> {
         let imageView = base
         
@@ -40,7 +39,7 @@ extension ImageCacheWrapper where Base: UIImageView {
                 imageView.image = placeholder
             }
             
-            let loader = ImageLoader(configuration: configuration)
+            let loader = ImageLoader.shared
             
             do {
                 let image = try await loader.load(from: url)

@@ -8,8 +8,10 @@
 import Foundation
 
 public final class ImageLoader: Sendable {
+    public static let shared = ImageLoader()
+
     private let pipeline: ImagePipeline
-    
+
     public init(configuration: CacheConfiguration = .default) {
         let memoryCache = MemoryCache(configuration: configuration)
         let diskCache = DiskCache(configuration: configuration)

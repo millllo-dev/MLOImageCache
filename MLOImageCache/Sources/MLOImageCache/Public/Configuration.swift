@@ -23,6 +23,20 @@ public struct CacheConfiguration: Sendable {
         diskCleanupInterval: 60 * 60                // 1 hour
     )
     
+    public init(
+        memoryCountLimit: Int,
+        memorySizeLimit: Int,
+        diskSizeLimit: Int,
+        diskExpiration: TimeInterval,
+        diskCleanupInterval: TimeInterval
+    ) {
+        self.memoryCountLimit = memoryCountLimit
+        self.memorySizeLimit = memorySizeLimit
+        self.diskSizeLimit = diskSizeLimit
+        self.diskExpiration = diskExpiration
+        self.diskCleanupInterval = diskCleanupInterval
+    }
+
     private static func deviceAvailableStorage() -> Int64 {
         let homeURL = URL(filePath: NSHomeDirectory())
         

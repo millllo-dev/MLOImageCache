@@ -114,8 +114,7 @@ final class DiskCache: DiskCacheProtocol {
     }
     
     private func fileURL(forKey key: String) -> URL {
-        let fileName = key.sha256Hash()
-        return directoryURL.appending(path: fileName, directoryHint: .notDirectory)
+        return directoryURL.appending(path: key, directoryHint: .notDirectory)
     }
     
     private func cachedFiles() throws -> [(url: URL, date: Date, size: Int)] {

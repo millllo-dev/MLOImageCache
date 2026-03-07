@@ -23,14 +23,13 @@ public struct MLOImage<Content: View, Placeholder: View>: View {
     
     @State private var state: ImageLoadingState = .idle
     
-    init(
+    public init(
         url: String,
-        configuration: CacheConfiguration = .default,
         @ViewBuilder content: @escaping (Image) -> Content,
         @ViewBuilder placeholder: @escaping () -> Placeholder
     ) {
         self.url = url
-        self.loader = ImageLoader(configuration: configuration)
+        self.loader = ImageLoader.shared
         self.content = content
         self.placeholder = placeholder
     }
